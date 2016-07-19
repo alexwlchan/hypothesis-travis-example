@@ -1,5 +1,5 @@
 from datetime import date
-from hypothesis import given
+from hypothesis import given, settings, Verbosity
 from hypothesis.extra.datetime import dates as date_strategy
 
 
@@ -15,6 +15,7 @@ def next_birthday(birthday):
     return birthday
 
 
+@settings(verbosity=Verbosity.verbose)
 @given(date_strategy(min_year=1850, max_year=2015))
 def test_next_birthday_is_after_today(birthday):
     assert date.today() <= next_birthday(birthday)
